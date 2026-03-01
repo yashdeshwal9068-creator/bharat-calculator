@@ -1,134 +1,187 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>JEE Calculator + PYQs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CalcMaster Pro</title>
 
 <style>
-body {
-    font-family: Arial;
-    text-align: center;
-    background: #f4f4f4;
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f2f2f2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
 }
 
-.calculator {
-    background: white;
-    padding: 20px;
-    display: inline-block;
-    border-radius: 10px;
-    box-shadow: 0 0 10px gray;
+.calculator{
+    width:360px;
+    background:#ffffff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,0.25);
 }
 
-#display {
-    width: 100%;
-    height: 40px;
-    margin-bottom: 10px;
-    font-size: 20px;
-    text-align: right;
+.header{
+    background:linear-gradient(to right,#ff7e00,#ff3d00);
+    color:white;
+    padding:15px;
+    font-size:18px;
+    display:flex;
+    justify-content:space-between;
+}
+.display{
+    background:#1c1c1c;
+    color:white;
+    font-size:30px;
+    text-align:right;
+    padding:20px;
+    height:80px;
+    overflow-x:auto;
 }
 
-button {
-    width: 60px;
-    height: 40px;
-    margin: 5px;
-    font-size: 16px;
-    cursor: pointer;
+.buttons{
+    padding:10px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
 }
-.switch-buttons {
-    margin: 15px;
+
+button{
+    height:55px;
+    border-radius:50%;
+    border:none;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.num{ background:#f0f0f0; }
+.func{ background:#e6e6e6; }
+.op{ background:#ffcc80; }
+.equal{ background:#ff3d00; color:white; }
+
+button:active{
+    transform:scale(0.95);
 }
 </style>
 </head>
 
 <body>
+<div class="calculator">
 
-<div class="switch-buttons">
-    <button onclick="showCalculator()">Calculator</button>
-    <button onclick="showPYQ()">PYQs</button>
+<div class="header">
+<span>Σ CalcMaster Pro</span>
+<span>DEG</span>
 </div>
 
-<div class="calculator" id="calculatorSection">
-    <input type="text" id="display" disabled>
+<div class="display" id="display">0</div>
 
-    <br>
+<div class="buttons">
 
-    <button onclick="addValue('7')">7</button>
-    <button onclick="addValue('8')">8</button>
-    <button onclick="addValue('9')">9</button>
-    <button onclick="addValue('/')">/</button>
-    <br>
- <button onclick="addValue('4')">4</button>
-    <button onclick="addValue('5')">5</button>
-    <button onclick="addValue('6')">6</button>
-    <button onclick="addValue('*')">*</button>
-    <br>
+<button class="func" onclick="clearDisplay()">C</button>
+<button class="func" onclick="deleteLast()">⌫</button>
+<button class="func" onclick="addValue('(')">(</button>
+<button class="func" onclick="addValue(')')">)</button>
+<button class="op" onclick="addValue('/')">÷</button>
 
-    <button onclick="addValue('1')">1</button>
-    <button onclick="addValue('2')">2</button>
-    <button onclick="addValue('3')">3</button>
-    <button onclick="addValue('-')">-</button>
-    <br>
+<button class="func" onclick="sin()">sin</button>
+<button class="func" onclick="cos()">cos</button>
+<button class="func" onclick="tan()">tan</button>
+<button class="func" onclick="log()">log</button>
+<button class="op" onclick="addValue('*')">×</button>
 
-    <button onclick="addValue('0')">0</button>
-    <button onclick="addValue('.')">.</button>
-    <button onclick="calculate()">=</button>
-    <button onclick="addValue('+')">+</button>
-    <br>
- <button onclick="clearDisplay()">C</button>
+<button class="num" onclick="addValue('7')">7</button>
+<button class="num" onclick="addValue('8')">8</button>
+<button class="num"
+
+onclick="addValue('9')">9</button>
+<button class="func" onclick="square()">x²</button>
+<button class="op" onclick="addValue('-')">−</button>
+
+<button class="num" onclick="addValue('4')">4</button>
+<button class="num" onclick="addValue('5')">5</button>
+<button class="num" onclick="addValue('6')">6</button>
+<button class="func" onclick="squareRoot()">√</button>
+<button class="op" onclick="addValue('+')">+</button>
+
+<button class="num" onclick="addValue('1')">1</button>
+<button class="num" onclick="addValue('2')">2</button>
+<button class="num" onclick="addValue('3')">3</button>
+<button class="func" onclick="addValue('Math.PI')">π</button>
+<button class="equal" onclick="calculate()">=</button>
+
+<button class="num" onclick="addValue('0')">0</button>
+<button class="num" onclick="addValue('.')">.</button>
+<button class="func" onclick="percentage()">%</button>
+<button class="func" onclick="addValue('Math.E')">e</button>
+
 </div>
-
-<div id="pyqSection" style="display:none; padding:20px;">
-
-<h2>JEE Mains & Advanced PYQs</h2>
-
-<h3>Physics</h3>
-<ul>
-<li>Electrostatics – 2022 Question 1</li>
-<li>Current Electricity – 2021 Question 2</li>
-</ul>
-
-<h3>Chemistry</h3>
-<ul>
-<li>Chemical Kinetics – 2023 Question 1</li>
-<li>Electrochemistry – 2022 Question 3</li>
-</ul>
-
-<h3>Mathematics</h3>
-<ul>
-<li>Limits – 2021 Question 4</li>
-<li>Definite Integration – 2023 Question 2</li>
-</ul>
-
 </div>
 
 <script>
-function addValue(val) {
-    document.getElementById("display").value += val;
+
+function addValue(val){
+    let display = document.getElementById("display");
+    if(display.innerText === "0") display.innerText = "";
+    display.innerText += val;
 }
 
-function clearDisplay() {
-    document.getElementById("display").value = "";
+function clearDisplay(){
+    document.getElementById("display").innerText = "0";
 }
 
-function calculate() {
-    try {
-        document.getElementById("display").value =
-        eval(document.getElementById("display").value);
-    } catch {
+function deleteLast(){
+    let display = document.getElementById("display");
+    let text = display.innerText;
+    display.innerText = text.length > 1 ? text.slice(0,-1) : "0";
+}
+
+function calculate(){
+    try{
+        let result = eval(document.getElementById("display").innerText);
+        document.getElementById("display").innerText = result;
+    }catch{
         alert("Invalid Expression");
     }
 }
 
-function showCalculator() {
-    document.getElementById("calculatorSection").style.display = "block";
-    document.getElementById("pyqSection").style.display = "none";
+function square(){
+    let v = parseFloat(document.getElementById("display").innerText);
+    document.getElementById("display").innerText = v * v;
 }
 
-function showPYQ() {
-    document.getElementById("calculatorSection").style.display = "none"; 
-document.getElementById("pyqSection").style.display = "block";
+function squareRoot(){
+    let v = parseFloat(document.getElementById("display").innerText);
+    document.getElementById("display").innerText = Math.sqrt(v);
+}
+
+function percentage(){
+    let v = parseFloat(document.getElementById("display").innerText);
+    document.getElementById("display").innerText = v / 100;
+}
+
+function sin(){
+    let v = parseFloat(document.getElementById("display").innerText);
+    document.getElementById("display").innerText = Math.sin(v * Math.PI / 180);
+}
+
+function cos(){
+    let v = parseFloat(document.getElementById("display").innerText);
+    document.getElementById("display").innerText = Math.cos(v * Math.PI / 180);
+}
+
+function tan(){
+    let v = parseFloat(document.getElementById("display").innerText);
+    document.getElementById("display").innerText = Math.tan(v * Math.PI / 180);
+}
+
+function log(){
+    let v = parseFloat(document.getElementById("display").innerText);
+    document.getElementById("display").innerText = Math.log10(v);
 }
 
 </script>
 
 </body>
-</html> 
+</html>
