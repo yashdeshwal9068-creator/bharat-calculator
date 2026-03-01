@@ -2,6 +2,12 @@
 <html>
 <head>
 <title>Bharat Pro Calculator</title>
+
+<link rel="manifest"
+href="manifest.json">
+<meta name="theme-color"
+content="#00ff88">
+  
 <style>
 body{
 background:black;
@@ -155,5 +161,13 @@ deleteLast();
 });
 </script>
 
+<script>
+if ('serviceworker' in navigator) {
+
+navigator.serviceWorker.register('servic
+e-worker.js');
+  }
+</script>
+  
 </body>
 </html>
